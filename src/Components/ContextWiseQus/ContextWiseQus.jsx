@@ -158,8 +158,9 @@ const ContextWiseQus = () => {
                 style={{
                   fontWeight: "600",
                   fontSize: "22px",
+
                   textAlign: "center",
-                  width: "75%",
+                  width: "60%",
 
                   margin: "0 auto",
                 }}
@@ -187,38 +188,42 @@ const ContextWiseQus = () => {
             {loading ? (
               <QuestionSkeleton />
             ) : (
-              randomQuestionData?.data?.answers?.map((elem, index) => (
-                <div className="" key={index}>
-                  <button
-                    disabled={buttonClicked}
-                    onClick={() => handleButtonClick(elem?._id)}
-                    style={{
-                      textAlign: "start",
-                      border: "none",
-                      borderRadius: "8px",
-                      backgroundColor:
-                        activeButtonId === elem?._id
-                          ? correctAnswerId === elem?._id
-                            ? "#54C999"
-                            : "red"
-                          : "white",
-                      color:
-                        activeButtonId === elem?._id
-                          ? correctAnswerId === elem?._id
-                            ? "white"
-                            : "white"
-                          : "black",
-                      padding: "8px",
-                      width: "48rem",
-                      marginTop: "20px",
-                      boxShadow: "0px 1.5px 0px 4px #ececec",
-                      // pointerEvents: apiStatus ? "none" : "auto",
-                    }}
-                  >
-                    {elem?.text}
-                  </button>
-                </div>
-              ))
+              randomQuestionData?.data?.answers
+                .filter((elem) => elem.text !== "N/A") // Filter out elements with text "N/A"
+                .map((elem, index) => (
+                  <div className="" key={index}>
+                    <button
+                      disabled={buttonClicked}
+                      onClick={() => handleButtonClick(elem?._id)}
+                      style={{
+                        textAlign: "start",
+                        border: "none",
+                        fontWeight: "400",
+                        fontSize: "16px",
+                        borderRadius: "8px",
+                        backgroundColor:
+                          activeButtonId === elem?._id
+                            ? correctAnswerId === elem?._id
+                              ? "#54C999"
+                              : "red"
+                            : "white",
+                        color:
+                          activeButtonId === elem?._id
+                            ? correctAnswerId === elem?._id
+                              ? "white"
+                              : "white"
+                            : "black",
+                        padding: "8px",
+                        width: "48rem",
+                        marginTop: "20px",
+                        boxShadow: "0px 1.5px 0px 4px #ececec",
+                        // pointerEvents: apiStatus ? "none" : "auto",
+                      }}
+                    >
+                      {elem?.text}
+                    </button>
+                  </div>
+                ))
             )}
           </div>
           {loading ? (
